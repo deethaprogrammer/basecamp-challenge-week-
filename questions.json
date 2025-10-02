@@ -1,0 +1,12 @@
+[
+    {
+        "question": "what is 2-2",
+        "options": ["A)0","B)1","C)2","D)3"],
+        "answer": "A"
+    },
+    {
+        "question": "what is 2+2",
+        "options": ["A)0","B)1","C)2","D)4"],
+        "answer": "D"
+    }
+]
