@@ -1,4 +1,7 @@
 time based point system with time limit
 if you are afk, have quit or if your to slow then the time limit will kick in and give you 0 points
 
+
 leader board is fully implemented.
+
+this is a project for the Hogeschool Rotterdam informatica year 1 basecamp arch 1) and is made with my group. they helped a lot with this project
