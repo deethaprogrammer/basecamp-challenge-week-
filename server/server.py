@@ -5,9 +5,9 @@ player_scores = {}
 answered = {}
 lock = threading.Lock()
 player_ready = threading.Event()
-player_start_time = {}
+
 player_end_time ={}
-leaderboard = {}
+leaderboard = []
 
 with open("questions.json", "r") as f:
     all_questions = json.load(f)
@@ -68,28 +68,44 @@ def quiz():
                     connection.send(b"wrong\n")
                     connection.send(f'you scored: 0 points\n'.encode())
                     
-    final_score = player_scores.copy()
+    toon_leaderboard()
+    time.sleep(3)
+    #     for conn, _ in players:
+            
+    #         conn.send(b"\n====LeaderBoard====\n")
+    #         conn.send(message)
+            
+    # for i in range(1, 4):
+    #     if final_score:
+    #         rank_player = max(final_score, key=final_score.get)
+    #         rank_score = final_score[rank_player]
+    #         final_score.pop(rank_player, None)
+    #         leaderboard[f'{i}.'] = (rank_player, rank_score)
     
-    for i in range(1, 4):
-        if final_score:
-            rank_player = max(final_score, key=final_score.get)
-            rank_score = final_score[rank_player]
-            final_score.pop(rank_player, None)
-            leaderboard[f'{i}.'] = (rank_player, rank_score)
+    #     else:
+    #         leaderboard[f'{i}.'] = ("n/a", 0)
     
-        else:
-            leaderboard[f'{i}.'] = ("n/a", 0)
+    # message = ("\n".join([f"{k} {v[0]} {v[1]}" for k, v in leaderboard.items()]).encode())
     
-    message = ("\n".join([f"{k} {v[0]} {v[1]}" for k, v in leaderboard.items()]).encode())
-    
-    for conn, _ in players:
-        
-        conn.send(b"\n====LeaderBoard====\n")
-        conn.send(message)
     
     shutdown_server()
     
+def toon_leaderboard():
+    for name, score in player_scores.items():
+        voeg_toe_aan_leaderboard(name, score)
         
+    gesorteerd = sorted(leaderboard, key=lambda x: x[1], reverse=True)
+    print("\n--- Leaderboard ---")
+    
+    for conn, _ in players:
+        conn.send(b"\n==== Leaderboard ====\n")
+        for plaats, (naam, score) in enumerate(gesorteerd, start=1):
+            conn.send(f"{plaats}. {naam} - {score} punten\n".encode())
+
+    
+def voeg_toe_aan_leaderboard(naam, score):
+    leaderboard.append((naam, score))
+
 def clients(connection, address):
     print(f"Connected to {address}")
     connection.send(b"enter your player name: ")
@@ -138,7 +154,8 @@ def shutdown_server():
         score = player_scores[name]
 
         try:
-            conn.send(f"\n\nGame over! Your score: {score}\n".encode())
+            conn.send(b"END")
+            conn.send(f'\nYour score was: {score}'.encode())
         except:
             pass
 
@@ -153,8 +170,8 @@ def shutdown_server():
 accept_players()
 player_ready.wait()
 
+time.sleep(2)
 for conn, _ in players:
     conn.send(b"All players connected! Quiz starting...\n")
 
-time.sleep(1)
 quiz()

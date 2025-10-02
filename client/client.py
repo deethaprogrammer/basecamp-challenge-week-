@@ -67,8 +67,8 @@ while True:
     elif not "All players connected" in question:
         print(question)
         time.sleep(2)
-        os.system('cls')
+
     elif "All players connected" in question:
-        time.sleep(2)
         os.system('cls')
         print(question)
+        time.sleep(2)
