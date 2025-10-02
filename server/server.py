@@ -7,6 +7,7 @@ lock = threading.Lock()
 player_ready = threading.Event()
 player_start_time = {}
 player_end_time ={}
+leaderboard = {}
 
 with open("questions.json", "r") as f:
     all_questions = json.load(f)
@@ -57,7 +58,7 @@ def quiz():
                 if ans == q["answer"]:
                     player_scores[name] += scored
                     connection.send(b"correct!\n")
-                    connection.send(f'you scored: {scored} points'.encode())
+                    connection.send(f'you scored: {scored} points\n'.encode())
                 
                 elif ans == "x":
                     connection.send(b"You didn't answer in time.\n")
@@ -65,8 +66,27 @@ def quiz():
                 
                 else:
                     connection.send(b"wrong\n")
-                    connection.send(f'you scored: 0 points'.encode())
-
+                    connection.send(f'you scored: 0 points\n'.encode())
+                    
+    final_score = player_scores.copy()
+    
+    for i in range(1, 4):
+        if final_score:
+            rank_player = max(final_score, key=final_score.get)
+            rank_score = final_score[rank_player]
+            final_score.pop(rank_player, None)
+            leaderboard[f'{i}.'] = (rank_player, rank_score)
+    
+        else:
+            leaderboard[f'{i}.'] = ("n/a", 0)
+    
+    message = ("\n".join([f"{k} {v[0]} {v[1]}" for k, v in leaderboard.items()]).encode())
+    
+    for conn, _ in players:
+        
+        conn.send(b"\n====LeaderBoard====\n")
+        conn.send(message)
+    
     shutdown_server()
     
         
@@ -118,7 +138,7 @@ def shutdown_server():
         score = player_scores[name]
 
         try:
-            conn.send(f"Game over! Your score: {score}\n".encode())
+            conn.send(f"\n\nGame over! Your score: {score}\n".encode())
         except:
             pass
 
