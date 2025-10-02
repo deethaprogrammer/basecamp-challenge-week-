@@ -1,12 +1,47 @@
 [
     {
-        "question": "what is 2-2",
-        "options": ["A)0","B)1","C)2","D)3"],
+        "question": "Wat is de hoofdstad van Frankrijk?",
+        "options": ["A)Londen", "B)Parijs", "C)Rome"],
+        "answer": "B"
+    },
+    {
+        "question": "Hoeveel continenten zijn er?",
+        "options": ["A)5", "B)6", "C)7"],
+        "answer": "C"
+    },
+    {
+        "question": "Welk land heeft de meeste inwoners ter wereld?",
+        "options": ["A)India", "B)China", "C)Verenigde Staten"],
+        "answer": "B"
+    },
+    {
+        "question": "Wat is de hoofdstad van Australië?",
+        "options": ["A)Sydney", "B)Melbourne", "C)Canberra"],
+        "answer": "C"
+    },
+    {
+        "question": "Welke berg is de hoogste ter wereld?",
+        "options": ["A)Mount Everest (Himalaya)", "B)K2", "C)Kilimanjaro"],
         "answer": "A"
     },
     {
-        "question": "what is 2+2",
-        "options": ["A)0","B)1","C)2","D)4"],
-        "answer": "D"
+        "question": "Welk continent ligt volledig op het zuidelijk halfrond?",
+        "options": ["A)Afrika", "B)Antarctica", "C)Zuid-Amerika"],
+        "answer": "B"
+    },
+    {
+        "question": "Welke rivier is de langste ter wereld?",
+        "options": ["A)Nijl", "B)Amazone", "C)Ganges"],
+        "answer": "A"
+    },
+    {
+        "question": "Waar ligt Suriname?",
+        "options": ["A)Zuid-Amerika", "B)Afrika", "C)Azië"],
+        "answer": "A"
+    },
+    {
+        "question": "Op welk continent ligt Egypte?",
+        "options": ["A)Afrika", "B)Azië", "C)Europa"],
+        "answer": "A"
     }
 ]

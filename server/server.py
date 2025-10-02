@@ -8,6 +8,7 @@ player_ready = threading.Event()
 
 player_end_time ={}
 leaderboard = []
+expected_player_count = 2
 
 with open("questions.json", "r") as f:
     all_questions = json.load(f)
@@ -70,23 +71,6 @@ def quiz():
                     
     toon_leaderboard()
     time.sleep(3)
-    #     for conn, _ in players:
-            
-    #         conn.send(b"\n====LeaderBoard====\n")
-    #         conn.send(message)
-            
-    # for i in range(1, 4):
-    #     if final_score:
-    #         rank_player = max(final_score, key=final_score.get)
-    #         rank_score = final_score[rank_player]
-    #         final_score.pop(rank_player, None)
-    #         leaderboard[f'{i}.'] = (rank_player, rank_score)
-    
-    #     else:
-    #         leaderboard[f'{i}.'] = ("n/a", 0)
-    
-    # message = ("\n".join([f"{k} {v[0]} {v[1]}" for k, v in leaderboard.items()]).encode())
-    
     
     shutdown_server()
     
@@ -137,7 +121,6 @@ server.bind(('localhost', 12345))
 server.listen()
 print("server is waiting for connection")
 questions = random.sample(all_questions, len(all_questions))
-expected_player_count = 2
 
 def accept_players():
     accepted = 0
@@ -159,7 +142,7 @@ def shutdown_server():
         except:
             pass
 
-    time.sleep(1)  # Give clients time to receive the message
+    time.sleep(1)  
 
     for conn, _ in players:
         conn.close()

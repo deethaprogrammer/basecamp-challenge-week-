@@ -5,7 +5,13 @@ client.connect(('localhost', 12345))
 os.system('cls')
 
 prompt = client.recv(1024).decode()
-
+verboden_namen = {
+    "test", "END", "Game over", "x", "correct!", "wrong", "you scored:",
+    "All players connected", "Time left:", "enter your player name:",
+    "hitler", "nazi", "ss", "fascist", "dictator", "racist", "slave",
+    "terrorist", "killer", "murder", "pedophile", "rapist"
+    # Voeg hier zelf termen aan toe die je ongepast vindt
+}
 while True: #Namira
     player_name = input(prompt)
     
@@ -15,6 +21,9 @@ while True: #Namira
     elif not 2<= len(player_name) <= 15:
         print("Deze naam is te kort het moet tussen 2 en 15 letters zijn.")
     
+    elif player_name.lower() in verboden_namen:
+        print("pak een andere naam deze is niet van toepassing")
+        
     else:
         break
 
@@ -50,7 +59,7 @@ while True:
             if msvcrt.kbhit():
                 key = msvcrt.getch().decode().upper()
 
-                if key in ['A','B','C','D']:
+                if key in ['A','B','C']:
                     client.send(key.encode())
                     print(f"\nyou have chosen {key}")
                     break
