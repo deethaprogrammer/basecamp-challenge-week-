@@ -1,3 +1,4 @@
-de tijd die de laatste persoon hoort te krijgen door dat hij langzamer is is het zelfde als de tijd van de snelste #gefixt
-als iemand disconect gebeurd er niks
-leaderboard voor de gene met de meeste punten
+time based point system with time limit
+if you are afk, have quit or if your to slow then the time limit will kick in and give you 0 points
+
+TODO leaderboard voor de gene met de meeste punten
